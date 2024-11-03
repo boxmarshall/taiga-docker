@@ -144,12 +144,15 @@ services:
       - taiga
 
   taiga-front:
-    image: taigaio/taiga-front:latest
+    build:
+      context: ./taiga-front
+      dockerfile: Dockerfile
 
     environment:
       TAIGA_URL: "${TAIGA_SCHEME}://${TAIGA_DOMAIN}"
       TAIGA_WEBSOCKETS_URL: "${WEBSOCKETS_SCHEME}://${TAIGA_DOMAIN}"
       TAIGA_SUBPATH: "${SUBPATH}"
+      PUBLIC_REGISTER_ENABLED: true
     # ...your customizations go here
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:80"]
