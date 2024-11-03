@@ -173,13 +173,6 @@ services:
       RABBITMQ_PASS: "${RABBITMQ_PASS}"
       TAIGA_SECRET_KEY: "${SECRET_KEY}"
 
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8888/events"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 30s
-
     networks:
       - taiga
 
@@ -235,13 +228,6 @@ services:
     build:
       context: ./taiga-gateway
       dockerfile: Dockerfile
-
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "-p", "http://localhost/api/v1/wiki"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 30s
 
 
     volumes:
