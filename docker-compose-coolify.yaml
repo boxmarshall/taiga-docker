@@ -154,7 +154,7 @@ services:
       TAIGA_SUBPATH: "${SUBPATH}"
     # ...your customizations go here
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      test: ["CMD", "wget", "--spider", "-p", "http://localhost:80"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -221,7 +221,7 @@ services:
       SECRET_KEY: "${SECRET_KEY}"
 
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8003"]
+      test: ["CMD", "wget", "--spider","-p", "http://localhost:8003"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -237,7 +237,7 @@ services:
       dockerfile: Dockerfile
 
     healthcheck:
-      test: ["CMD", "curl", "-f","http://localhost/api/v1/wiki"]
+      test: ["CMD", "wget", "--spider", "-p", "http://localhost/api/v1/wiki"]
       interval: 30s
       timeout: 10s
       retries: 5
