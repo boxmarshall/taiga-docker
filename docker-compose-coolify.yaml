@@ -17,8 +17,12 @@ services:
       - taiga
 
   taiga-back:
-    image: taigaio/taiga-back:latest
+    build: 
+      context: ./taiga-back
+      dockerfile: Dockerfile
+
     environment:   # These environment variables will be used by taiga-back and taiga-async.
+
       # Database settings
       POSTGRES_DB: "taiga"
       POSTGRES_USER: "${POSTGRES_USER}"
