@@ -264,10 +264,15 @@ services:
       RABBITMQ_PASS: "${RABBITMQ_PASS}"
       CELERY_ENABLED: "False"
 
+    profiles:
+      - manual
+    restart: "no"
 
     depends_on:
       - taiga-db
+
     entrypoint: "python manage.py"
+
     volumes:
       - taiga-static-data:/taiga-back/static
       - taiga-media-data:/taiga-back/media
