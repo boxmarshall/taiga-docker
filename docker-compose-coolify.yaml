@@ -161,8 +161,8 @@ services:
       start_period: 30s
 
 
-      networks:
-      - taiga
+    networks:
+    - taiga
     # volumes:
     #   - ./conf.json:/usr/share/nginx/html/conf.json
 
