@@ -97,22 +97,12 @@ services:
       - taiga
 
   taiga-front:
-    build:
-      context: ./taiga-front
-      dockerfile: Dockerfile
-
+    image: taigaio/taiga-front:latest
     environment:
       TAIGA_URL: "${TAIGA_SCHEME}://${TAIGA_DOMAIN}"
       TAIGA_WEBSOCKETS_URL: "${WEBSOCKETS_SCHEME}://${TAIGA_DOMAIN}"
       TAIGA_SUBPATH: "${SUBPATH}"
-    # ...your customizations go here
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:80"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 30s
-
+      # ...your customizations go here
     networks:
       - taiga
     # volumes:
@@ -144,32 +134,19 @@ services:
       - taiga
 
   taiga-protected:
-    build:
-      context: ./taiga-protected
-      dockerfile: Dockerfile
-   
+    image: taigaio/taiga-protected:latest
     environment:
       MAX_AGE: "${ATTACHMENTS_MAX_AGE}"
       SECRET_KEY: "${SECRET_KEY}"
-
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8003"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 30s
-
     networks:
       - taiga
 
   taiga-gateway:
-    build:
-      context: ./taiga-gateway
-      dockerfile: Dockerfile
-
+    image: nginx:1.19-alpine
     ports:
       - "9000:80"
     volumes:
+      - ./taiga-gateway/taiga.conf:/etc/nginx/conf.d/default.conf
       - taiga-static-data:/taiga/static
       - taiga-media-data:/taiga/media
     networks:
@@ -178,14 +155,6 @@ services:
       - taiga-front
       - taiga-back
       - taiga-events
-
-    healthcheck:
-      test: ["CMD", "curl", "-f","http://localhost/api/v1/wiki"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 30s
-
 
 volumes:
   taiga-static-data:
