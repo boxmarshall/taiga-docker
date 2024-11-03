@@ -144,9 +144,7 @@ services:
       - taiga
 
   taiga-front:
-    build:
-      context: ./taiga-front
-      dockerfile: Dockerfile
+    image: taigaio/taiga-front:latest
 
     environment:
       TAIGA_URL: "${TAIGA_SCHEME}://${TAIGA_DOMAIN}"
